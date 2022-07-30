@@ -4,10 +4,13 @@
 Airline webpage for buying tickets using Python and Flask.
 
 This web application uses Flask and Python.
-It has custom CSS.
-It uses tables to render information.
+It has custom CSS. It does not use Bootstrap or Javascript. Changes at DOM level are by Flask.
+It mostly uses tables to render information.
+Upon program start, a function will analyze the tables in DB and compare the lastest date in tables to our current date.
+After this, it will populate the database table accordingly with another function, based on destinations and itinerarios contained in hard-coded arrays. This allows seamless simulation of a real web app for tickets.
+Implementation of new destinations and itineraries must be done manually, however it is as simple as altering the corresponding arrays or lists in the python file.
 
-This project was very useful for me in learning a variety of skills. Althought not very deep in content, the process required me to learn the following:
+This project was very useful for me in learning a variety of skills:
 - Working with dictionaries and indexing lists, keys, and extracting and manipulating databases.
 - CSS basics, ways to format divisions, blocks vs width, alignment, floating divs, etc.
 - Using tables to present information in ways that dont look like tables.
@@ -15,13 +18,12 @@ This project was very useful for me in learning a variety of skills. Althought n
 - Setting up different pages that can be navigated to and from
 
 
-Uses sessions to store the selections, then upon confirmation it stores the selection in a database.
+Project uses sessions to store the selections, then upon confirmation it stores the selection into a database.
 This way the selections can be modified easily, but are read directly from the database for confirmation avoiding possible errors.
 
-Previous reservations may be accessed providing the reservation number in the fields in the header bar. Once in the reservation page, user may check in as normal if not done yet.
+Previous reservations may be accessed providing the reservation number in the fields in the header bar. Once in the reservation page, user may check-in as normal if not done yet.
 
-A navigation menu exists during the reservation process so the user may go back and change previous selections (like dates or passenger number). This menu is disabled for those
-pages in which the reservation is already confirmed.
+A navigation menu exists during the reservation process so the user may go back and change previous selections (like dates or passenger number). This menu is disabled for those pages in which the required information is not already provided.
 
 It turned out using cosmetically modfied tables was one of the most useful ways to present information.
 Both the seat map and the boarding pass (the things I wanted to make the most) are made with tables, and using them simplified the process greatly.
@@ -72,4 +74,12 @@ Business passengers may select any seat, but economy passengers are restricted t
 
 Print boarding pass:
 A boarding pass for each passenger is rendered using CSS, tables, and the information from the database. The passes are of a fixed size, which allows fitting on a page and printing.
+
+Pending:
+Applying JavaScript to prevent the user from inserting wrong values or making incorrect selections. Right now this alerts are presented by redirects to error pages.
+Apply Javascript to make seat selection screen more pleasing to user.
+Applying a barcode generator to insert a realistic barcode in the rendered boarding ticket (last stage, print ticket).
+
+
+
 
