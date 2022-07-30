@@ -13,20 +13,20 @@ Implementation of new destinations and itineraries must be done manually, howeve
 This project was very useful for me in learning a variety of skills:
 - Working with dictionaries and indexing lists, keys, and extracting and manipulating databases.
 - CSS basics, ways to format divisions, blocks vs width, alignment, floating divs, etc.
-- Using tables to present information in ways that dont look like tables.
+- Using tables to present information in ways that go beyond simple tables (Seat map, boarding pass).
 - Creating html content recursively.
 - Setting up different pages that can be navigated to and from
 
 
 Project uses sessions to store the selections, then upon confirmation it stores the selection into a database.
-This way the selections can be modified easily, but are read directly from the database for confirmation avoiding possible errors.
+This way the selections can be modified easily, but are read directly from the database for confirmation avoiding possible errors / security issues in the final stage.
 
 Previous reservations may be accessed providing the reservation number in the fields in the header bar. Once in the reservation page, user may check-in as normal if not done yet.
 
 A navigation menu exists during the reservation process so the user may go back and change previous selections (like dates or passenger number). This menu is disabled for those pages in which the required information is not already provided.
 
 It turned out using cosmetically modfied tables was one of the most useful ways to present information.
-Both the seat map and the boarding pass (the things I wanted to make the most) are made with tables, and using them simplified the process greatly.
+Both the seat map and the boarding pass are made with tables, and using them simplified the process greatly.
 
 A description of each page and their features:
 
