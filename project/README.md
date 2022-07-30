@@ -7,7 +7,7 @@ This web application uses Flask and Python.
 It has custom CSS. It does not use Bootstrap or Javascript. Changes at DOM level are by Flask.
 It mostly uses tables to render information.
 Upon program start, a function will analyze the tables in DB and compare the lastest date in tables to our current date.
-After this, it will populate the database table accordingly with another function, based on destinations and itinerarios contained in hard-coded arrays. This allows seamless simulation of a real web app for tickets.
+After this, it will populate the database table accordingly with another function, based on destinations and itineraries contained in hard-coded arrays. This allows seamless simulation of a real web app for tickets.
 Implementation of new destinations and itineraries must be done manually, however it is as simple as altering the corresponding arrays or lists in the python file.
 
 This project was very useful for me in learning a variety of skills:
