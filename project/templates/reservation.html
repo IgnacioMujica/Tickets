@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block midside %}
+<div class="midside">
+    <h2>Reservation</h2>
+    <h5>View your reservation. Check available after 3 days before flight.</h5>
+    <div>
+        <div class="ticketform">
+            <div>
+                <table>
+                    <tr><td colspan=10> Flight {{leg1_flightno}} from {{orig}} to {{dest}} on {{leg1_date}}</td></tr>
+                    {% if trip_type == "round_trip" %}
+                        <tr><td colspan=10> Flight {{leg2_flightno}} from {{dest}} to {{orig}} on {{leg2_date}}</td></tr>
+                    {% endif %}
+                    <tr><td style="text-align: left; margin:2px" colspan=4>Passenger total</td><td colspan=1>{{pax_no}}</td><td colspan=2>{{ pax_unit_price }}</td><td colspan=3>{{ pax_no * pax_unit_price }}</td></tr>
+                    <tr><td style="text-align: left; margin:2px" colspan=4>Business seats</td><td colspan=1>{{bus_no}}</td><td colspan=2>{{ pax_unit_price * 2.5 }}</td><td colspan=3>{{ pax_unit_price * 2.5 * bus_no }}</td></tr>
+                    <tr><td style="text-align: left; margin:2px" colspan=4>Additional bags</td><td colspan=1>{{addlbag_no}}</td><td colspan=2>30</td><td colspan=3>{{ addlbag_no * 30 }}</td></tr>
+                    <tr><td style="text-align: left; margin:2px" colspan=4>Pet total</td><td colspan=1>{{pet_no}}</td><td colspan=2>{{ 150 }}</td><td colspan=3>{{ pet_no * 150 }}</td></tr>
+                    <tr><td style="text-align: left; margin:2px" colspan=7>Total price </td><td colspan=3>  {{ (pax_no * pax_unit_price) + (pax_unit_price * 2.5 * bus_no) + (addlbag_no * 30) + (pet_no * pax_unit_price * 0.60)  }} </td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="centered">
+        </div>
+    </div>
+    <div class="ticketform">
+        <div>
+        {% for pax in paxlist %}
+            <div class="blocked">
+                Passenger {{ loop.index }}:
+                <table>
+                    <div>
+                        <tr><td>👤</td><td>First name: </td><td> {{ pax.pax_first_name }}</td></tr>
+                        <tr><td>👤</td><td>Last name: </td><td>{{ pax.pax_last_name }}</td></tr>
+                        <tr><td>🛂</td><td>Passport number: </td><td>{{ pax.pass_no }}</td></tr>
+                        <tr><td>💺</td><td>Seating Class: </td><td>{{ pax.seat_class }}</td></tr>
+                        <tr><td>🧳</td><td>Bags: </td><td>{{ pax.bag_no }}</td></tr>
+                        {% if pax.wchr == "Yes"%}
+                            <tr><td>🦽</td><td>Special assist.: </td><td>{{ pax.wchr }}</td></tr>
+                        {% endif %}
+                    </div>
+                </table>
+            </div>
+        {% endfor %}
+        </div>
+        {% if infantlist|length > 0 or petlist|length > 0 %}
+        <div>
+        {% for infant in infantlist %}
+        <div class="blocked">
+            Infant {{ loop.index }}:
+            <table>
+                <div>
+                    <tr><td>🚼</td><td>First name: </td><td> {{ infant.dep_first_name }}  </td></tr>
+                    <tr><td>🚼</td><td>Last name: </td><td> {{ infant.dep_last_name }}  </td></tr>
+                    <tr><td>🛂</td><td>Passport number: </td><td> {{ infant.dep_pass_no }} </td></tr>
+                </div>
+            </table>
+        </div>
+        {% endfor %}
+        {% for pet in petlist %}
+        <div class="blocked">
+        Pet {{ loop.index }}:
+            <table>
+                <div>
+                    <tr><td>🐾</td><td>Pet name:</td><td> {{ pet.dep_first_name }}  </td></tr>
+                    <tr><td> {% if pet.kind == "D" %}
+                        <div>🐕</div>
+                        {% else %}
+                        <div>🐈</div>
+                        {% endif %}
+                    </td><td>Species: </td><td> {{ pet.kind }}  </td></tr>
+                </div>
+            </table>
+        </div>
+        {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+    <div>
+    {% if (days_to_leg1 > 3) and (l1_checked == "n") %}
+        Go trip: You will be able to check-in in {{ days_to_leg1 - 3 }} days.
+    {% endif %}
+    {% if (days_to_leg1 <= 3) and (l1_checked == "n") %}
+        <form action="/check_in_l1" method="POST">
+            <button type="submit">Check In (Go trip)</button>
+        </form>
+        <br>
+    {% endif %}
+    {% if (days_to_leg1 <= 3) and (l1_checked == "y") %}
+        <form action="/boarding_pass_l1" method="POST">
+            <button type="submit">Boarding Pass (Go trip)</button>
+        </form>
+    {% endif %}
+    <br>
+    {% if trip_type == "round_trip" %}
+        {% if (days_to_leg2 > 3) and (l2_checked == "n") %}
+            Return trip: You will be able to check-in in {{ days_to_leg2 - 3 }} days.
+        {% endif %}
+        {% if (days_to_leg2 <= 3) and (l2_checked == "n") %}
+            <form action="/check_in_l2" method="POST">
+                <button type="submit">Check In (Return trip)</button>
+            </form>
+            <br>
+        {% endif %}
+        {% if (days_to_leg1 <= 3) and (l2_checked == "y") %}
+            <form action="/boarding_pass_l2" method="POST">
+                <button type="submit">Boarding Pass (Go trip)</button>
+            </form>
+            <br>
+        {% endif %}
+    </form>
+    {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}
+

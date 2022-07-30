@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block midside %}
+<div class="midside">
+    <br>
+    <h3>Passenger information</h3>
+    <h5>Enter passenger details.</h5>
+    <div class="ticketform">
+        <form action="/book_petinf" method="POST">
+            <div class="lefted">
+                <div class="blocked">
+                    👤 Enter passengers information:
+                    {% for pax in range (1, pax_no + 1) %}
+                    <div>
+                    <br>
+                    Enter information for passenger number {{ pax }}:
+                    <p><div class = "label">First Name:</div>
+                    <input class = "label" type = "text" name = "passenger_fname_{{ pax }}" value = ""></p>
+                        <p><div class = "label">Last Name:</div>
+                        <input class = "label" type = "text" name = "passenger_lname_{{ pax }}" value = ""></p>
+                        <div><div class = "label">Passport number:</div>
+                        <input class = "label" type = "text" name = "passenger_pnumber_{{ pax }}" value = ""></div>
+                    <div>
+                        <p><div class = "label">🧳 Number of bags:</div>
+                            <div class = "label">
+                                <select name="passenger_bag_no_{{ pax }}">
+                                    <option value="0">None</option>
+                                    <option selected value="1">1 (Included)</option>
+                                    <option value="2">2 (USD 20)</option>
+                                    <option value="3">3 (USD 40)</option>
+                                </select>
+                            </div></p>
+                    </div>
+                    <div>
+                        <div>
+                            <p>
+                            <div class="label">💺 Select seating class:</div>
+                                <div class = "label">
+                                    <input type="radio" name="seat_class_{{ pax }}" value="Economy" checked> Economy<br>
+                                    <input type="radio" name="seat_class_{{ pax }}" value="Business"> Business (USD 75)
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>
+                        <div class = "label">🦽 Special assistance:</div>
+                            <div class = "label">
+                                <input type="radio" name="spec_assist_{{ pax }}" value="No" checked> No<br>
+                                <input type="radio" name="spec_assist_{{ pax }}" value="Yes"> Yes
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+                <button type="submit">Confirm</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+

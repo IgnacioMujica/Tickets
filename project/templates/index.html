@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+
+{% block script %}
+{% endblock %}
+
+{% block midside %}
+    <div class="midside">
+        <h2>Find flights</h2>
+
+        <div class="ticketform">
+            <form action="/results" method="POST">
+            🛫 Origin:
+            <select name="origin">
+                <option disabled selected value="">From</option>
+                    {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
+            </select>
+
+            🛬 Destination:
+            <select name="destination">
+                <option disabled selected value="">To</option>
+                    {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
+            </select>
+            <br>
+            <div>
+                <div>
+                    <br>Round trip <input type="radio" name="trip_type" value="round_trip" checked>
+                    One way <input type="radio" name="trip_type" value="one_way">
+                    <br>
+                </div>
+                <br>
+                <div>
+                    📆 Departure Date<br>
+                    <input name="leg1_date" autocomplete="off" class="date-input" type="date">                <br>
+                    📆 Return Date<br>
+                    <input name="leg2_date" autocomplete="off" class="date-input" type="date">
+                    <br>
+                </div>
+            </div>
+            <br>
+            <button type="submit">Search flights!</button>
+        </form>
+        </div>
+    </div>
+
+{% endblock %}
+

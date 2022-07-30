@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block menu %}
+
+    <div class="midsidetop">
+        <div class="navmenu">
+            <div class="navbutton">
+                <form action="/">
+                    <input type="submit" value="Search Flights" />
+                </form>
+            </div>
+            <div class="navbutton">
+                <form action="/results">
+                    <input type="submit" value="Select Date"/>
+                </form>
+            </div>
+            <div class="navbutton">
+                <form action="/book1">
+                    <input type="submit" value="Traveller Information"/>
+                </form>
+            </div>
+            <div class="navbutton">
+                <form action="/details">
+                    <input type="submit" value="Reservation Details"disabled="disabled"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

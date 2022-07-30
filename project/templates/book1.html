@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+{% block midside %}
+    <div class="midside">
+    <br>
+    <h3>Travellers</h3>
+    <h5>Enter number of passengers, infants and pets. </h5>
+        <div class="ticketform">
+            <form action="/book_pax" method="POST">
+                <div class="lefted">
+                    <p><b>Departure flight:</b></p>
+                    <p>Flight {{leg1_flightno}} between {{orig}} and {{dest}} on {{leg1_date}}</p>
+                        {% if trip_type == "round_trip" %}
+                            <p><b>Return flight:</b></p>
+                            <p>Flight {{leg2_flightno}} between {{dest}} and {{orig}} on {{leg2_date}}</p>
+                        {% endif %}
+                    <p>👤 Select number of passengers for this reservation:<br>
+                    <select name="passenger_number">
+                        <option selected value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+
+                    <p>🚼 Travelling with infants?
+                    <br>No <input type="radio" name="infants" value="infants_no">
+                    Yes <input type="radio" name="infants" value="infants_yes">
+                    <br>
+                    Select number of infants for this reservation:<br>
+                    <select name="infants_number">
+                        <option selected value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    </p>
+                    <p>🐾 Travelling with pet?
+                    <br>No <input type="radio" name="pets" value="pet_no">
+                    Yes <input type="radio" name="pets" value="pet_yes">
+                    <br>
+                    Select number of pets for this reservation:<br>
+                    <select name="pets_number">
+                        <option selected value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    </p>
+                    <br>
+                </div>
+            <button type="submit">Enter passenger details</button>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+

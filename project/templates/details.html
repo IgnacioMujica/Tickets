@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block midside %}
+<div class="midside">
+    <br>
+    <h3>Booking details</h3>
+    <h5>Please review your selection.</h5>
+    <div class="blocked">
+        <div class="ticketform floatleft">
+            {% for pax in paxlist %}
+            Passenger number {{ loop.index }}:
+            <table>
+            <div>
+                <tr><td>👤</td><td>First name: </td><td> {{ pax.pax_first_name }}</td></tr>
+                <tr><td>👤</td><td>Last name: </td><td>{{ pax.pax_last_name }}</td></tr>
+                <tr><td>🛂</td><td>Passport number: </td><td>{{ pax.pass_no }}</td></tr>
+                <tr><td>💺</td><td>Seating Class: </td><td>{{ pax.seat_class }}</td></tr>
+                <tr><td>🧳</td><td>Bags: </td><td>{{ pax.bag_no }}</td></tr>
+                {% if pax.wchr == "Yes"%}
+                    <tr><td>🦽</td><td>Special assist.: </td><td>{{ pax.wchr }}</td></tr>
+                {% endif %}
+
+
+            </div>
+            </table>
+            <br>
+            {% endfor %}
+        </div>
+        {% if infantlist|length > 0 or petlist|length > 0 %}
+        <div class="ticketform floatleft">
+         {% for infant in infantlist %}
+         Infant number {{ loop.index }}:
+         <table>
+            <div>
+                <tr><td>🚼</td><td>First name: </td><td> {{ infant.dep_first_name }}  </td></tr>
+                <tr><td>🚼</td><td>Last name: </td><td> {{ infant.dep_last_name }}  </td></tr>
+                <tr><td>🛂</td><td>Passport number: </td><td> {{ infant.dep_pass_no }} </td></tr>
+            </div>
+        </table>
+        <br>
+        {% endfor %}
+        {% for pet in petlist %}
+        Pet number {{ loop.index }}:
+        <table>
+            <div>
+                <tr><td>🐾</td>
+                    <td>Pet name:</td><td> {{ pet.dep_first_name }}  </td></tr>
+                <tr><td> {% if pet.kind == "D" %}
+                            <div>🐕</div>
+                        {% else %}
+                            <div>🐈</div>
+                        {% endif %}
+                    </td><td>Species: </td><td> {{ pet.kind }}  </td></tr>
+            </div>
+        </table>
+        <br>
+        {% endfor %}
+        </div>
+        {% endif %}
+        <form action="/confirm" method="POST">
+                <input type="submit" value="Confirm"/>
+        </form></div>
+    </div>
+</div>
+
+{% endblock %}
+

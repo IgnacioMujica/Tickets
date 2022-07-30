@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <!-- http://getbootstrap.com/docs/4.5/ -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link href="/static/favicon.ico" rel="icon">
+        <link href="/static/styles.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        {% block script %}
+        {% endblock %}
+
+        <title>Aerolínea Municipal de Pato Mojado</title>
+    </head>
+
+    <body>
+        <header>
+            <div class="header_div">
+                <div class="res_box">
+                    <div>
+                        Search reservation:
+                    </div>
+                    <div>
+                    <form action="/reservation" method="POST">
+                            <input class = "label" name="resno" autocomplete="off" class="form-control" placeholder="Reservation no." type="text">
+                            <button type="submit">View Reservation</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="banner_img">
+                    <img style="max-height: 80px; width: auto; vertical-align: baseline;" src="/static/images/transparent_737s.png" alt="Logo">
+                </div>
+                <div class="date_time">
+
+                        {{ today_date }}
+
+                </div>
+            </div>
+
+        </header>
+
+        <main>
+            <div class="leftside">
+                LEFT
+            </div>
+            <div class="midsideglobal">
+                {% if navmenu == 1 %}
+                <div class="midsidetop">
+
+
+                    <div class="navmenu">
+                        <div class="navbutton">
+                            <form action="/">
+                                <input type="submit" value="Search Flights" />
+                            </form>
+                        </div>
+                        <div class="navbutton">
+                            <form action="/results">
+                                <input type="submit" value="Select Date"/>
+                            </form>
+                        </div>
+                        <div class="navbutton">
+                            <form action="/book1">
+                                <input type="submit" value="Traveller Information"/>
+                            </form>
+                        </div>
+                        <div class="navbutton">
+                            <form action="/details">
+                                <input type="submit" value="Reservation Details"/>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="top_box">
+                        <table id="top_box_flights">
+                        {% if trip_type == "round_trip" %}
+                            <tr><th colspan="3">Orig.</th><th colspan="3">Dest.</th><th colspan="3">Date</th><th colspan="3">Flight</th><th colspan="3">👤</th><td colspan="3">{{pax_no}}</td></tr>
+                            <tr><td colspan="3">{{orig}}</td><td colspan="3">{{dest}}</td><td colspan="3">{{leg1_date}}</td><td colspan="3">{{leg1_flightno}}</td><th colspan="3">🚼</th><td colspan="3"> {{inf_no}} </td></td></tr>
+                            <tr><td colspan="3">{{dest}}</td><td colspan="3">{{orig}}</td><td colspan="3">{{leg2_date}}</td><td colspan="3">{{leg2_flightno}}</td><th colspan="3">🐾</th><td colspan="3"> {{pet_no}} </td></td></tr>
+                        {% else %}
+                            <tr><th colspan="3">Orig.</th><th colspan="3">Dest.</th><th colspan="3">Date</th><th colspan="3">Flight</th><th colspan="3">👤</th><th colspan="3">🚼</th><th colspan="3">🐾</th></tr>
+                            <tr><td colspan="3">{{orig}}</td><td colspan="3">{{dest}}</td><td colspan="3">{{leg1_date}}</td><td colspan="3">{{leg1_flightno}}</td><td colspan="3"> {{pax_no}} </td><td colspan="3"> {{inf_no}} </td><td colspan="3"> {{pet_no}} </td></tr>
+                        {% endif %}
+                    </table>
+                    </div>
+                    <br>
+
+                </div>
+                {% endif %}
+                {% block midside %}
+                {% endblock %}
+            </div>
+            <div class="rightside">
+                RIGHT
+            </div>
+        </main>
+        <footer>
+        </footer>
+    </body>
+</html>

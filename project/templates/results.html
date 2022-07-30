@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block midside %}
+
+<div class="midside">
+    <div class="ticketform">
+            <form action="/book1" method="POST">
+        <!-- Displays GO LEG RESULTS -->
+            <p>Leg 1: Departing from {{ intended_orig }} and arriving at {{ intended_dest }}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>📆 Date</th>
+                            <th>Price</th>
+                            <th>💺 Business<br>Seats Avl.</th>
+                            <th>💺 Economy<br>Seats Avl.</th>
+                            <th>🐾 Pet<br>Allowance</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for flight in leg1_results %}
+                        <tr>
+                            <td><input type="radio" name="leg_1" value="{{ flight.Id }}"></td>
+                            <td>{{ flight.date }}</td>
+                            <td>{{ flight.price }}</td>
+                            <td>{{ 16 - flight.B }}</td>
+                            <td>{{ 138 - flight.E }}</td>
+                            <td>{{ 5 - flight.P }}</td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        <!-- Displays RETURN LEG RESULTS -->
+
+            {% if trip_type == "round_trip" %}
+            <p>Leg 2: Departing from {{ intended_dest }} and arriving at {{ intended_orig }}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>📆 Date</th>
+                            <th>Price</th>
+                            <th>💺 Business<br>Seats Avl.</th>
+                            <th>💺 Economy<br>Seats Avl.</th>
+                            <th>🐾	Pet<br>Allowance</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for flight in leg2_results %}
+                            <tr>
+                                <td><input type="radio" name="leg_2" value="{{ flight.Id }}"></td>
+                                <td>{{ flight.date }}</td>
+                                <td>{{ flight.price }}</td>
+                                <td>{{ 16 - flight.B }}</td>
+                                <td>{{ 138 - flight.E }}</td>
+                                <td>{{ 5 - flight.P }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+                <br>
+                <button type="submit">Select flights</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+

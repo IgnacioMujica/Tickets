@@ -1,0 +1,313 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block midside %}
+
+<div class="midside">
+    <h2>Check in</h2>
+    <h5>Check in for the return trip.</h5>
+    <div style = "margin-top: 35px;">
+        <table>
+                {% for pax in pax_list %}
+                    <tr class="void">
+                        <td> {{ pax.pax_first_name }} {{ pax.pax_last_name }}</td>
+                        <td> {{ pax.l2_seat }} </td>
+                    </tr>
+                {% endfor %}
+        </table>
+        <br>
+        <br>
+        <form action="/check_in_l2" method="POST">
+        <table class="void" style=background-color:d6dbdf;>
+        {% if pax.seat_class == "Business" %}
+
+<!-- BUS COLS -->
+            <tr>
+                <th class="void" colspan=2> </th>
+                <th class="fus ls_fus" colspan=2> </th>
+                <th class="void" colspan=3>A</th>
+                <th class="void" colspan=3>B</th>
+                <th class="void" colspan=3> </th>
+                <th class="void" colspan=3>E</th>
+                <th class="void" colspan=3>F</th>
+                <th class="fus ls_fus flip" colspan=2> </th>
+                <th class="void" colspan=2> </th>
+            </tr>
+<!-- ROWS 1 to 4 -->
+            {% for row in range (1, 5) %}
+            <tr>
+                <td class="void" colspan=2> {{ row }} </td>
+                <td class="fus ls_fus" colspan=2> </td>
+                {% if seatmap[row-1]['A'] is none %}
+                    <td class="bs_seat" colspan=3>{{value}}<input type="radio" value="A{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="bs_seat_oc" colspan=3>{{value}}<input type="radio" disabled value="A{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['B'] is none %}
+                    <td class="bs_seat" colspan=3>{{value}}<input type="radio" value="B{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="bs_seat_oc" colspan=3>{{value}}<input type="radio" disabled value="B{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="aisle" colspan=3></td>
+                {% if seatmap[row-1]['E'] is none %}
+                    <td class="bs_seat" colspan=3>{{value}}<input type="radio" value="E{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="bs_seat_oc" colspan=3>{{value}}<input type="radio" disabled value="E{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['F'] is none %}
+                    <td class="bs_seat" colspan=3>{{value}}<input type="radio" value="F{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="bs_seat_oc" colspan=3>{{value}}<input type="radio" disabled value="F{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="fus ls_fus flip" colspan=2> </td>
+                <td class="void" colspan=2> {{ row }} </td>
+            </tr>
+
+            {% endfor %}
+
+            {% endif %}
+<!-- ECO COLS -->
+            <tr>
+                <th class="void" colspan=2> </th>
+                <th class="fus ls_fus" colspan=2> </th>
+                <th class="void" colspan=2>A</th>
+                <th class="void" colspan=2>B</th>
+                <th class="void" colspan=2>C</th>
+                <th class="void" colspan=3> </th>
+                <th class="void" colspan=2>D</th>
+                <th class="void" colspan=2>E</th>
+                <th class="void" colspan=2>F</th>
+                <th class="fus ls_fus flip" colspan=2> </th>
+                <th class="void" colspan=2> </th>
+            </tr>
+
+<!-- ROWS 5 to 8 -->
+            {% for row in range (5, 9) %}
+            <tr>
+                <td class="void" colspan=2> {{ row }} </td>
+                <td class="fus ls_fus" colspan=2> </td>
+                {% if seatmap[row-1]['A'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="A{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="A{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['B'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="B{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="B{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['C'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="C{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="C{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="aisle" colspan=3></td>
+                {% if seatmap[row-1]['D'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="D{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="D{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['E'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="E{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="E{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['F'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="F{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="F{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="fus ls_fus flip" colspan=2> </td>
+                <td class="void" colspan=2> {{ row }} </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td class="void" colspan=2> 9 </td>
+                <td class="fus lw_f_fus" colspan=2> </td>
+                {% if seatmap[9]['A'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="A_9" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="A_9" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[9]['B'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="B_9" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="B_9" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[9]['C'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="C_9" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="C_9" name="seat_selector"></td>
+                {% endif %}
+                <td class="aisle" colspan=3></td>
+                {% if seatmap[9]['D'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="D_9" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="D_9" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[9]['E'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="E_9" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="E_9" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[9]['F'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="F_9" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="F_9" name="seat_selector"></td>
+                {% endif %}
+                <td class="fus lw_f_fus flip" colspan=2> </td>
+                <td class="void" colspan=2> 9 </td>
+            </tr>
+            {% for row in range (10, 12) %}
+            <tr>
+                <td class="void" colspan=2> {{ row }} </td>
+                <td class="fus" colspan=2> </td>
+ {% if seatmap[row-1]['A'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="A{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="A{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['B'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="B{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="B{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['C'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="C{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="C{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="aisle" colspan=3></td>
+                {% if seatmap[row-1]['D'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="D{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="D{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['E'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="E{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="E{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['F'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="F{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="F{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="fus" colspan=2> </td>
+                <td class="void" colspan=2> {{ row }} </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td class="void left_exit" colspan=2> {{ row }} </td>
+                <td class="fus" colspan=2> </td>
+                <td class="aisle" colspan=2></td>
+                <td class="aisle" colspan=2></td>
+                <td class="aisle" colspan=2></td>
+                <td class="aisle" colspan=3></td>
+                <td class="aisle" colspan=2></td>
+                <td class="aisle" colspan=2></td>
+                <td class="aisle" colspan=2></td>
+                <td class="fus" colspan=2> </td>
+                <td class="void left_exit flip" colspan=2> {{ row }} </td>
+            </tr>
+            {% for row in range (12, 15) %}
+            <tr>
+                <td class="void" colspan=2> {{ row }} </td>
+                <td class="fus" colspan=2> </td>
+                 {% if seatmap[row-1]['A'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="A{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="A{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['B'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="B{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="B{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['C'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="C{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="C{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="aisle" colspan=3></td>
+                {% if seatmap[row-1]['D'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="D{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="D{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['E'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="E{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="E{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['F'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="F{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="F{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="fus" colspan=2> </td>
+                <td class="void" colspan=2> {{ row }} </td>
+            </tr>
+            {% endfor %}
+<tr>
+                <td class="void" colspan=2> 15 </td>
+                <td class="fus lw_a_fus" colspan=2> </td>
+                <td class="ec_seat" colspan=2><input type="radio" value="A_15" name="seat_selector"></td>
+                <td class="ec_seat" colspan=2><input type="radio" value="B_15" name="seat_selector"></td>
+                <td class="ec_seat" colspan=2><input type="radio" value="C_15" name="seat_selector"></td>
+                <td class="aisle" colspan=3></td>
+                <td class="ec_seat" colspan=2><input type="radio" value="D_15" name="seat_selector"></td>
+                <td class="ec_seat" colspan=2><input type="radio" value="E_15" name="seat_selector"></td>
+                <td class="ec_seat" colspan=2><input type="radio" value="F_15" name="seat_selector"></td>
+                <td class="fus lw_a_fus flip" colspan=2> </td>
+                <td class="void" colspan=2> 15 </td>
+            </tr>
+            {% for row in range (16, 23) %}
+ <tr>
+                <td class="void" colspan=2> {{ row }} </td>
+                <td class="fus ls_fus" colspan=2> </td>
+                {% if seatmap[row-1]['A'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="A{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="A{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['B'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="B{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="B{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['C'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="C{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="C{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="aisle" colspan=3></td>
+                {% if seatmap[row-1]['D'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="D{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="D{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['E'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="E{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="E{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                {% if seatmap[row-1]['F'] is none %}
+                    <td class="ec_seat" colspan=2>{{value}}<input type="radio" value="F{{ row }}" name="seat_selector"></td>
+                {% else %}
+                    <td class="ec_seat_oc" colspan=2>{{value}}<input type="radio" disabled value="F{{ row }}" name="seat_selector"></td>
+                {% endif %}
+                <td class="fus ls_fus flip" colspan=2> </td>
+                <td class="void" colspan=2> {{ row }} </td>
+            </tr>
+            {% endfor %}
+         </table>
+         <br>
+         <button type="submit">Select Seat</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

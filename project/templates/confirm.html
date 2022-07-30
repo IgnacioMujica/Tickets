@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block midside %}
+<div class="midside">
+    <h2>Confirm</h2>
+    <h5>Review and pay for reservation</h5>
+    <div class="blocked">
+        <div class="ticketform floatleft">
+            <table>
+                <tr><td colspan=10> Flight {{leg1_flightno}} from {{orig}} to {{dest}} on {{leg1_date}}</td></tr>
+                {% if trip_type == "round_trip" %}
+                    <tr><td colspan=10> Flight {{leg2_flightno}} from {{dest}} to {{orig}} on {{leg2_date}}</td></tr>
+                {% endif %}
+                <tr><td colspan=4>👤 Passenger total</td><td colspan=1>{{pax_no}}</td><td colspan=2>{{ pax_unit_price }}</td><td colspan=3>{{ pax_no * pax_unit_price }}</td></tr>
+                <tr><td colspan=4>💺 Business seats</td><td colspan=1>{{bus_no}}</td><td colspan=2>{{ pax_unit_price * 2.5 }}</td><td colspan=3>{{ pax_unit_price * 2.5 * bus_no }}</td></tr>
+                <tr><td colspan=4>🧳 Additional bags</td><td colspan=1>{{addlbag_no}}</td><td colspan=2>30</td><td colspan=3>{{ addlbag_no * 30 }}</td></tr>
+                <tr><td colspan=4>🐾 Pet total</td><td colspan=1>{{pet_no}}</td><td colspan=2>{{ 150 }}</td><td colspan=3>{{ pet_no * 150 }}</td></tr>
+                <tr><td colspan=7> Total price </td><td colspan=3>  {{ (pax_no * pax_unit_price) + (pax_unit_price * 2.5 * bus_no) + (addlbag_no * 30) + (pet_no * pax_unit_price * 0.60)  }} </td></tr>
+            </table>
+        </div>
+
+        <div class="ticketform floatleft lefted">
+            <form action="/reservation" method="POST">
+                <p>
+                    <input type="radio" name="pay_method" value="credit_card"></td> 💳 Credit Card
+                </p>
+                <p>
+                    <input type="radio" name="pay_method" value="debit_card"></td> 💳 Debit Card
+                </p>
+                <p>
+                    <input type="radio" name="pay_method" value="bank_transfer"></td> 🏦 Bank Transfer
+                </p>
+                <p>
+                    <input type="radio" name="pay_method" value="cash"></td> 💵 Cash
+                </p>
+                <div class="centered">
+                <p>
+                    <input type="submit" value="Pay"/>
+                </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

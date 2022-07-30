@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block midside %}
+<div class="midside">
+    <br>
+    <h3>Other travellers information</h3>
+    <h5>Enter infant details.</h5>
+    <h5>Enter pet details.</h5>
+    <div class="ticketform">
+        <div class="lefted">
+            <form action="/details" method="POST">
+                <div>
+                    Enter infants and pets information:
+                    <!-- ENTER INFANTS INFO -->
+                        {% for infant in range (1, inf_no+1) %}
+                <div>
+                    <br>
+                        🚼 Enter information for infant number {{ infant }}*:<br>
+                    <p><div class = "label">First Name:</div>
+                    <input class = "label" type = "text" name = "infant_first_name_{{ infant }}" value = ""></p>
+                    <p><div class = "label">Last Name:</div>
+                    <input class = "label" type = "text" name = "infant_last_name_{{ infant }}" value = ""></p>
+                    <p><div class = "label">Passport number:</div>
+                    <input class = "label" type = "text" name = "infant_pass_no_{{ infant }}" value = ""></p>
+                </div>
+                        {% endfor %}
+                    <!-- ENTER PETS INFO -->
+                {% for pet in range (1, pet_no+1) %}
+                <div>
+                    <br>
+                    🐾 Enter information for pet number {{ pet }}**:<br>
+                    <p><div class = "label">Pet name:</div>
+                    <input class = "label" type = "text" name = "pet_{{ pet }}" value = ""></p>
+                    <p><div class = "label">Pet species:</div>
+                        <div class = "label">
+                            <select name="pet_species_{{ pet }}">
+                            <option disabled selected value=""></option>
+                            <option value="D">Dog</option>
+                            <option value="C">Cat</option>
+                            </select>
+                            </p>
+                    </div>
+                </div>
+                    {% endfor %}
+                </div>
+                <small> * All doccumentation regarding infants
+                must be presented upon check in as per
+                local law and company policies.
+                <br>
+                ** Only cats and dogs allowed on board.
+                Contact cargo division to transport
+                other species as live cargo.</small>
+                <br>
+        <button type="submit">Confirm</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
